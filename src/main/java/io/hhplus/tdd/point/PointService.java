@@ -15,6 +15,7 @@ public class PointService {
     private final PointValidator pointValidator;
     private final ReentrantLock lock = new ReentrantLock();
 
+
     public PointService(UserPointTable userPointTable, PointHistoryTable pointHistoryTable, PointValidator pointValidator) {
         this.userPointTable = userPointTable;
         this.pointHistoryTable = pointHistoryTable;
