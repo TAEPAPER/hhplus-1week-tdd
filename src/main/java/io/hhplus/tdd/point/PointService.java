@@ -21,7 +21,11 @@ public class PointService {
         this.pointValidator = pointValidator;
     }
 
-    //포인트 조회
+    /**
+     * 특정 유저의 포인트를 조회하는 기능
+     * @param userId
+     * @return 조회한 UserPoint
+     */
     public UserPoint selectPoint(long userId) {
 
         UserPoint userPoint = userPointTable.selectById(userId);
@@ -30,7 +34,11 @@ public class PointService {
         return userPoint;
     }
 
-    // 포인트 충전/사용 내역 조회
+    /**
+     * 특정 유저의 포인트 충전/이용 내역을 조회하는 기능
+     * @param userId
+     * @return 조회한 List<PointHistory>
+     */
     public List<PointHistory> selectPointHistory(long userId) {
 
         UserPoint userPoint = userPointTable.selectById(userId);
@@ -39,7 +47,12 @@ public class PointService {
         return pointHistoryTable.selectAllByUserId(userId);
     }
 
-    //포인트 충전
+    /**
+     * 특정 유저의 포인트를 충전하는 기능
+     * @param userId
+     * @param amount
+     * @return 충전 UserPoint
+     */
     public UserPoint charge(long userId, long amount) {
 
             UserPoint userPoint = userPointTable.selectById(userId);
@@ -55,7 +68,12 @@ public class PointService {
             return new UserPoint(userId, newAmount, currentTime);
     }
 
-    //포인트 사용
+    /**
+     * 특정 유저의 포인트를 사용하는 기능
+     * @param userId
+     * @param amount
+     * @return 사용 UserPoint
+     */
     public  UserPoint use(long userId, long amount) {
 
             UserPoint userPoint = userPointTable.selectById(userId);
@@ -66,6 +84,5 @@ public class PointService {
             long currentTime = System.currentTimeMillis();
             pointHistoryTable.insert(userId, amount, TransactionType.USE, currentTime);
             return new UserPoint(userId, amount, currentTime);
-
     }
 }

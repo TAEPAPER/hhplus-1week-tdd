@@ -19,6 +19,9 @@ import static org.mockito.ArgumentMatchers.anyLong;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
+/**
+ * PointServiceTest
+ */
 @ExtendWith(org.mockito.junit.jupiter.MockitoExtension.class)
 public class PointServiceTest {
 
@@ -43,6 +46,9 @@ public class PointServiceTest {
 
     private final static long ID = 1L;
 
+    /**
+     * 특정 유저의 포인트를 조회하는 기능 테스트
+     */
     @Test
     void 사용자_포인트_조회() {
         // given
@@ -60,6 +66,9 @@ public class PointServiceTest {
         verify(userPointTable).selectById(userId);
     }
 
+    /**
+     * 특정 유저의 포인트 충전/이용 내역을 조회하는 기능 테스트
+     */
     @Test
     void 사용자_포인트_충전_사용_내역_조회() {
 
@@ -86,6 +95,9 @@ public class PointServiceTest {
         verify(pointHistoryTable).selectAllByUserId(eq(userId));
     }
 
+    /**
+     * 특정 유저의 포인트를 충전하는 기능 테스트
+     */
     @Test
     void 사용자_포인트_충전_후_히스토리_저장(){
 
@@ -113,6 +125,9 @@ public class PointServiceTest {
         verify(pointHistoryTable).insert(eq(userId), eq(chargeAmount), eq(TransactionType.CHARGE), anyLong());
     }
 
+    /**
+     * 특정 유저의 포인트를 사용하는 기능 테스트
+     */
     @Test
     void 사용자_포인트_사용_후_히스토리_저장() {
 
