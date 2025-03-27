@@ -25,7 +25,6 @@ import static org.mockito.Mockito.when;
 @ExtendWith(org.mockito.junit.jupiter.MockitoExtension.class)
 public class PointServiceTest {
 
-
     private PointService pointService;
 
     @Mock
