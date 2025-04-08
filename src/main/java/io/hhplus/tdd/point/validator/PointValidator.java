@@ -8,6 +8,7 @@ public class PointValidator {
 
     private static final long MAX_BALANCE = 10000L;
 
+
     /**
      * 충전 금액 유효성 검사
      * @param amount
