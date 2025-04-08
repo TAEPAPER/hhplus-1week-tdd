@@ -55,7 +55,8 @@ public class PointService {
      * @return 충전 UserPoint
      */
     public UserPoint charge(long userId, long amount) {
-
+        lock.lock();
+        try {
             UserPoint userPoint = userPointTable.selectById(userId);
             pointValidator.validateCharge(amount);
             pointValidator.validateMaxBalance(userPoint.point(), amount);
@@ -67,6 +68,9 @@ public class PointService {
             pointHistoryTable.insert(userId, amount, TransactionType.CHARGE, currentTime);
 
             return new UserPoint(userId, newAmount, currentTime);
+        }finally {
+            lock.unlock();
+        }
     }
 
     /**
@@ -76,7 +80,8 @@ public class PointService {
      * @return 사용 UserPoint
      */
     public  UserPoint use(long userId, long amount) {
-
+        lock.lock();
+        try {
             UserPoint userPoint = userPointTable.selectById(userId);
             pointValidator.validateUse(userPoint, amount);
 
@@ -85,5 +90,8 @@ public class PointService {
             long currentTime = System.currentTimeMillis();
             pointHistoryTable.insert(userId, amount, TransactionType.USE, currentTime);
             return new UserPoint(userId, amount, currentTime);
+        }finally {
+            lock.unlock();
+        }
     }
 }
